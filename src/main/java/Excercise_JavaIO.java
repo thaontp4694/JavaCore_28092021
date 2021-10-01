@@ -17,6 +17,9 @@ public class Excercise_JavaIO {
             System.out.print(" > ");
             System.out.println(file.isDirectory() ? "Folder" : "File");
         }
+
+        Excercise_JavaIO example = new Excercise_JavaIO();
+        example.listChild(workdir, 0);
     }
 
     private static void listFilesinDirectory(File dir) {
@@ -27,5 +30,27 @@ public class Excercise_JavaIO {
                     System.out.println(file.getName());
             } else listFilesinDirectory(file);
         }
+    }
+
+    private void listChild(File file, int level) {
+
+        if (file.isDirectory()) {
+            System.out.println(getPadding(level) + " - " + file.getName());
+            File[] children = file.listFiles();
+            for (File child : children) {
+                this.listChild(child, level + 1);
+            }
+        } else {
+            System.out.println(getPadding(level) + " + " + file.getName());
+        }
+
+    }
+
+    private String getPadding(int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= level; i++) {
+            sb.append("    ");
+        }
+        return sb.toString();
     }
 }
